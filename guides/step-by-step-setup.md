@@ -1,4 +1,4 @@
-# Step-by-Step Introduction
+# Step-by-Step Setup
 
 Checkpoint is a Node.js library and running the following NPM commands will install it:
 
@@ -12,8 +12,8 @@ yarn add @snapshot-labs/checkpoint
 Three arguments are required to initialize a Checkpoint instance. These are:
 
 * Checkpoint Configuration,
-* Data Writers,
-* GraphQL entity Schemas.
+* GraphQL entity Schemas,
+* Data Writers.
 
 {% hint style="info" %}
 There is a fourth optional argument for configuring options like log levels and database connection. Read more about this parameter [here](advanced-options.md).
@@ -49,6 +49,25 @@ const config: CheckpointConfig = {
 The `start` block number is set to `185778` because the contract was deployed at that block. This will mean Checkpoint starts scanning from that block as opposed to starting at block 0.
 
 The `deploy_fn` and `fn` values are the names of the data writer functions to be invoked when the contract deployment and new\_post events are encountered respectively. Read more about Checkpoint configuration [here](../core-concepts/checkpoint-configuration.md).
+
+### Defining GraphQL entity schemas
+
+Checkpoint requires a set of defined GraphQL Schema Objects. These schema objects will be used to create the database tables for indexing records and also generate graphql queries for accessing the indexed data.
+
+For this guide, we will want to track a `Post` entity and have it exposed via the graphql API. This entity can be defined as the following schema:
+
+```graphql
+const schema = `
+""" Entity named Post """
+type Post {
+  id: String!
+  author: String!
+  created_at_block: Int!
+}
+`;
+```
+
+Checkpoint will use the above entity (`Post)` to generate a MySQL database table named `posts` with columns matching the defined fields. It will also generate a list of graphql queries to enable querying indexed data. Read more about how queries are generated [here](../core-concepts/entity-schema.md#query-generation).
 
 ### Creating Data Writers
 
@@ -98,25 +117,6 @@ With the above code snippet, we have a data writer that writes new posts to the 
 You can view a more comprehensive data writer example in our checkpoint-template codebase [here](https://github.com/snapshot-labs/checkpoint-template/blob/master/src/writers.ts).
 {% endhint %}
 
-### Defining GraphQL entity schemas
-
-Checkpoint requires a set of defined GraphQL Schema Objects. These schema objects will be used to create the database tables for indexing records and also generate graphql queries for accessing the indexed data.
-
-For this guide, based on the data structure we are writing in our `handleNewPost` data writer, we will be defining the following entity schema:
-
-```graphql
-const schema = `
-""" Entity named Post """
-type Post {
-  id: String!
-  author: String!
-  created_at_block: Int!
-}
-`;
-```
-
-Checkpoint will use the above entity (`Post)` to generate a MySQL database table named `posts` with columns matching the defined fields. It will also generate a list of graphql queries to enable querying indexed data. Read more about how queries are generated [here](../core-concepts/entity-schema.md#query-generation).
-
 ### Starting Checkpoint with Arguments
 
 Finally, we can initialize a checkpoint instance with our arguments like these:
@@ -149,13 +149,13 @@ import express from 'express';
 const checkpoint = new Checkpoint(...);
 
 const app = express();
-app.use('/', checkpoint.graphql);
+app.use('/graphql', checkpoint.graphql);
 
 const PORT = 3000;
 app.listen(PORT, () => console.log(`Listening at http://localhost:${PORT}`));
 ```
 
-This will mount a GraphQL endpoint that can be accessible at http://localhost:3000/graphql (and a GraphiQL interface at http://localhost:3000/graphiql).&#x20;
+This will mount a GraphQL endpoint that can be accessible at http://localhost:3000/graphql (and a GraphiQL interface at http://localhost:3000/graphql when visited from the browser).&#x20;
 
 Checkpoint exposes two types of queries:&#x20;
 
@@ -163,6 +163,8 @@ Checkpoint exposes two types of queries:&#x20;
 2. [Internal data Queries](../core-concepts/internal-data-query.md)
 
 These enable public users to fetch information about being indexed.
+
+For starters, you can visit http://localhost:3000/graphql in your browser and try running the sample query generated in the graphiql UI.
 
 ### Conclusion
 
