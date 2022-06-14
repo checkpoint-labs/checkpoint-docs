@@ -5,7 +5,7 @@
 ## Guides
 
 * [Quickstart](guides/quickstart.md)
-* [Step-by-Step Introduction](guides/step-by-step-introduction.md)
+* [Step-by-Step Setup](guides/step-by-step-setup.md)
 * [Advanced options](guides/advanced-options.md)
 
 ## Core Concepts

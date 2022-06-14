@@ -33,8 +33,8 @@ Follow our handy guides to get started with Checkpoint as quickly as possible:
 [quickstart.md](guides/quickstart.md)
 {% endcontent-ref %}
 
-{% content-ref url="guides/step-by-step-introduction.md" %}
-[step-by-step-introduction.md](guides/step-by-step-introduction.md)
+{% content-ref url="guides/step-by-step-setup.md" %}
+[step-by-step-setup.md](guides/step-by-step-setup.md)
 {% endcontent-ref %}
 
 {% content-ref url="guides/advanced-options.md" %}
