@@ -1,4 +1,4 @@
-# Checkpoint writers
+# Data writers
 
 Data writers are callback functions that Checkpoint invokes when the event of a contract is discovered at a particular block.
 
@@ -25,12 +25,12 @@ Data writers are callback functions that Checkpoint invokes when the event of a 
  * ```
  *
  * Note, Graphql Entity names are lowercased with an 's' suffix when
- * interacting with them in the databas.
+ * interacting with them in the database.
  *e
  */
 type CheckpointWriter = (args: {
   tx: Transaction;
-  block: number;
+  block: GetBlockResponse;
   receipt: TransactionReceipt;
   mysql: AsyncMySqlPool;
   source: ContractSourceConfig;
@@ -43,7 +43,7 @@ type CheckpointWriter = (args: {
  * event matching a key is found.
  *
  */
-export interface CheckpointWriters {
+interface CheckpointWriters {
   [event: string]: CheckpointWriter;
 }
 ````
