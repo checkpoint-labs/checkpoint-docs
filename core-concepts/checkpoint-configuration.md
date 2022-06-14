@@ -1,6 +1,6 @@
 # Checkpoint configuration
 
-Checkpoint uses a configuration JSON object to determine which networks and contract information it will be indexing.
+Checkpoint uses a configuration object to determine which networks and contract information it will be indexing.
 
 ```typescript
 // Configuration used to initialize Checkpoint

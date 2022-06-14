@@ -5,17 +5,23 @@
 ## Guides
 
 * [Quickstart](guides/quickstart.md)
-* [Querying data](guides/querying-data.md)
+* [Step-by-Step Introduction](guides/step-by-step-introduction.md)
 * [Advanced options](guides/advanced-options.md)
 
 ## Core Concepts
 
 * [Checkpoint configuration](core-concepts/checkpoint-configuration.md)
 * [Entity schema](core-concepts/entity-schema.md)
-* [Checkpoint writers](core-concepts/checkpoint-writers.md)
+* [Data writers](core-concepts/data-writers.md)
 * [Internal data Query](core-concepts/internal-data-query.md)
 
 ## Use Cases
 
 * [Snapshot X API](use-cases/snapshot-x-api.md)
 * [Contact us](use-cases/contact-us.md)
+
+## Community
+
+* [Discord](https://discord.gg/snapshot)
+* [Telegram](https://t.me/+dk7Q7FAVJ1oyMDFl)
+* [Github](https://github.com/snapshot-labs/checkpoint)
