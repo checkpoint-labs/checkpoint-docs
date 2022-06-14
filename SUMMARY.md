@@ -5,7 +5,7 @@
 ## Guides
 
 * [Quickstart](guides/quickstart.md)
-* [Step-by-Step Setup](guides/step-by-step-setup.md)
+* [Step-by-step setup](guides/step-by-step-setup.md)
 * [Advanced options](guides/advanced-options.md)
 
 ## Core Concepts
@@ -13,7 +13,7 @@
 * [Checkpoint configuration](core-concepts/checkpoint-configuration.md)
 * [Entity schema](core-concepts/entity-schema.md)
 * [Data writers](core-concepts/data-writers.md)
-* [Internal data Query](core-concepts/internal-data-query.md)
+* [Internal data query](core-concepts/internal-data-query.md)
 
 ## Use Cases
 
