@@ -17,6 +17,10 @@ As highlighted in the flow diagram above:
 3. Checkpoint calls the data writer function for the respective event. [Writers](core-concepts/data-writers.md) are responsible for writing entity objects to the database.
 4. The decentralized application queries the Checkpoint GraphQL API. Checkpoint translates the GraphQL queries into SQL queries to fetch this entity data from the database. The decentralized application displays this data in a rich UI for end-users, which they can also use to issue new transactions on StarkNet, and the cycle repeats.
 
+For each block where Checkpoint encounters relevant events, it creates a record in the database to keep track of it. These records can be queried through the GraphQL API using the `_checkpoints` query. You can read more about how to do that [here](core-concepts/internal-data-query.md#2.-\_checkpoint-and-\_checkpoints-query-fields).&#x20;
+
+Also, you can provide a list of blocks as seeds to Checkpoint to help speed up its initial indexing. You can read more about how this works [here](guides/speeding-up-indexing.md).
+
 ## Installation
 
 Checkpoint is an NPM package that can be installed through the following command:
