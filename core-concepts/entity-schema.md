@@ -10,7 +10,7 @@ For example:
 """ Vote is a valid entity """
 type Vote {
   id: String!
-  voter: String
+  voter: User
   space: String
   proposal: Int
   choice: Int
@@ -35,31 +35,31 @@ For example, using the earlier defined `User` entity, Checkpoint will generate t
 
 ```graphql
 type Query {
-    user(id: ID): User
-    users(
-        first: Int
-        skip: Int
-        orderBy: String
-        orderDirection: OrderDirection
-        where: WhereUser
-    ): [User]
+  user(id: ID): User
+  users(
+    first: Int
+    skip: Int
+    orderBy: String
+    orderDirection: OrderDirection
+    where: WhereUser
+  ): [User]
 }
 
 type WhereUser {
-    id: String
-    id_in: [String]
-    vote_count_gt: Int
-    vote_count_gte: Int
-    vote_count_lt: Int
-    vote_count_lte: Int
-    vote_count: Int
-    vote_count_in: [Int]
-    created_gt: Int
-    created_gte: Int
-    created_lt: Int
-    created_lte: Int
-    created: Int
-    created_in: [Int]
+  id: String
+  id_in: [String]
+  vote_count_gt: Int
+  vote_count_gte: Int
+  vote_count_lt: Int
+  vote_count_lte: Int
+  vote_count: Int
+  vote_count_in: [Int]
+  created_gt: Int
+  created_gte: Int
+  created_lt: Int
+  created_lte: Int
+  created: Int
+  created_in: [Int]
 }
 ```
 
