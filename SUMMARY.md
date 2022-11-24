@@ -6,6 +6,7 @@
 
 * [Quickstart](guides/quickstart.md)
 * [Step-by-step setup](guides/step-by-step-setup.md)
+* [Templates](guides/templates.md)
 * [One-to-one relations](guides/one-to-one-relations.md)
 * [BigInt and BigDecimal](guides/bigint-and-bigdecimal.md)
 * [Speeding up Indexing](guides/speeding-up-indexing.md)
