@@ -6,8 +6,10 @@
 
 * [Quickstart](guides/quickstart.md)
 * [Step-by-step setup](guides/step-by-step-setup.md)
+* [One-to-one relations](guides/one-to-one-relations.md)
 * [BigInt and BigDecimal](guides/bigint-and-bigdecimal.md)
 * [Speeding up Indexing](guides/speeding-up-indexing.md)
+* [ApolloServer usage](guides/apolloserver-usage.md)
 * [Advanced options](guides/advanced-options.md)
 
 ## Core Concepts
