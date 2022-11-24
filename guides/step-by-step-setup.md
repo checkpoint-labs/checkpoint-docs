@@ -1,4 +1,4 @@
-# Step-by-Step Setup
+# Step-by-step setup
 
 Checkpoint is a Node.js library and running the following NPM commands will install it:
 
@@ -29,7 +29,7 @@ To successfully track the addresses of authors, you'll need to listen to [new\_p
 import { CheckpointConfig } from "@snapshot-labs/checkpoint";
 
 const config: CheckpointConfig = {
-  network: "goerli-alpha",
+  network_node_url: "https://starknet-goerli.infura.io/v3/46a5dd9727bf48d4a132672d3f376146",
   sources: [
     {
       contract: "0x04d10712e72b971262f5df09506bbdbdd7f729724030fa909e8c8e7ac2fd0012",
@@ -92,15 +92,16 @@ const writers: CheckpointWriters = {
     },
     // handleNewPost will get invoked when a `new_post` event
     // is found at a block
-    handleNewPost: async ({ mysql, receipt, block }) => {
-        const event = receipt.events[0] as any;
+    handleNewPost: async ({ mysql, event, block }) => {
+        if (!event) return;
+
         // extract posters address from events data
         const author = getAddress(BigNumber.from(event.data[0]).toHexString());
         
         // post object matches fields of Post entity we will
         // define in graphql schema
         const posts = {
-          id: `${author}/${receipt.transaction_hash}`,
+          id: `${author}/${tx.transaction_hash}`,
           author,
           created_at_block: block.blockNumber
         };

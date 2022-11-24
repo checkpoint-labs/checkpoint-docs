@@ -30,10 +30,11 @@ Data writers are callback functions that Checkpoint invokes when the event of a 
  */
 type CheckpointWriter = (args: {
   tx: Transaction;
-  block: GetBlockResponse;
-  receipt: TransactionReceipt;
-  mysql: AsyncMySqlPool;
+  block: FullBlock;
+  event?: Event;
   source: ContractSourceConfig;
+  mysql: AsyncMySqlPool;
+  instance: Checkpoint;
 }) => Promise<void>;
 
 /**

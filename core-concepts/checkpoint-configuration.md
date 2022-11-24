@@ -5,8 +5,9 @@ Checkpoint uses a configuration object to determine which networks and contract 
 ```typescript
 // Configuration used to initialize Checkpoint
 export interface CheckpointConfig {
-  network: 'mainnet-alpha' | 'goerli-alpha';
-  sources: ContractSourceConfig[];
+  network_node_url: string;
+  sources?: ContractSourceConfig[];
+  templates?: { [key: string]: ContractTemplate };
 }
 
 export interface ContractEventConfig {
@@ -25,5 +26,9 @@ export interface ContractSourceConfig {
   deploy_fn: string;
   events: ContractEventConfig[];
 }
+
+export interface ContractTemplate {
+  events: ContractEventConfig[];
+};
 ```
 
