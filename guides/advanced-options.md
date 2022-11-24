@@ -15,6 +15,9 @@ export interface CheckpointOptions {
   // connection string. If no provided will default to looking up a value in
   // the DATABASE_URL environment.
   dbConnection?: string;
+  // Configuration for decimal types
+  // defaults to Decimal(10, 2), BigDecimal(20, 8)
+  decimalTypes?: { [key: string]: { p: number; d: number } };
 }
 ```
 
@@ -57,3 +60,7 @@ export enum LogLevel {
 ```
 
 In a non-production environment, you can set the `prettifyLogs` option to `true` and this will output a pretty version
+
+### Decimal types options
+
+Used to redefine [decimal types](bigint-and-bigdecimal.md#custom-decimal-types) available in the schema.

@@ -6,6 +6,7 @@
 
 * [Quickstart](guides/quickstart.md)
 * [Step-by-step setup](guides/step-by-step-setup.md)
+* [BigInt and BigDecimal](guides/bigint-and-bigdecimal.md)
 * [Speeding up Indexing](guides/speeding-up-indexing.md)
 * [Advanced options](guides/advanced-options.md)
 
