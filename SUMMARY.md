@@ -12,6 +12,7 @@
 * [Speeding up Indexing](guides/speeding-up-indexing.md)
 * [ApolloServer usage](guides/apolloserver-usage.md)
 * [Advanced options](guides/advanced-options.md)
+* [Media](guides/media.md)
 
 ## Core Concepts
 

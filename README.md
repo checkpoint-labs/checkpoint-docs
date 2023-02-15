@@ -29,7 +29,7 @@ Checkpoint is an NPM package that can be installed through the following command
 npm install @snaphsot-labs/checkpoint
 ```
 
-## Guides: Jump right in
+## Guides: jump right in
 
 Follow our handy guides to get started with Checkpoint as quickly as possible:
 
@@ -45,7 +45,7 @@ Follow our handy guides to get started with Checkpoint as quickly as possible:
 [advanced-options.md](guides/advanced-options.md)
 {% endcontent-ref %}
 
-## Core Concepts: Dive a little deeper
+## Core concepts: dive a little deeper
 
 Learn the fundamentals of Checkpoint to get a deeper understanding of how it works:
 
