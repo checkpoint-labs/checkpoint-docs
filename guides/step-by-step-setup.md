@@ -3,10 +3,10 @@
 Checkpoint is a Node.js library and running the following NPM commands will install it:
 
 ```
-npm install @snapshot-labs/checkpoint
+npm install @snapshot-labs/checkpoint@beta
 
 # or if using yarn
-yarn add @snapshot-labs/checkpoint
+yarn add @snapshot-labs/checkpoint@beta
 ```
 
 Three arguments are required to initialize a Checkpoint instance. These are:
