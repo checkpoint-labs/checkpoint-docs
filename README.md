@@ -26,7 +26,7 @@ Also, you can provide a list of blocks as seeds to Checkpoint to help speed up i
 Checkpoint is an NPM package that can be installed through the following command:
 
 ```bash
-npm install @snaphsot-labs/checkpoint
+npm install @snapshot-labs/checkpoint@beta
 ```
 
 ## Guides: jump right in
