@@ -9,17 +9,22 @@
 * [Templates](guides/templates.md)
 * [One-to-one relations](guides/one-to-one-relations.md)
 * [BigInt and BigDecimal](guides/bigint-and-bigdecimal.md)
-* [Speeding up Indexing](guides/speeding-up-indexing.md)
 * [ApolloServer usage](guides/apolloserver-usage.md)
 * [Advanced options](guides/advanced-options.md)
 * [Media](guides/media.md)
 
 ## Core Concepts
 
+* [Models](core-concepts/models.md)
 * [Checkpoint configuration](core-concepts/checkpoint-configuration.md)
 * [Entity schema](core-concepts/entity-schema.md)
 * [Data writers](core-concepts/data-writers.md)
 * [Internal data query](core-concepts/internal-data-query.md)
+
+## Tutorials
+
+* [Part 1 - Get started](tutorials/part-1-get-started.md)
+* [Part 2 - Indexing global events](tutorials/part-2-indexing-global-events.md)
 
 ## Use Cases
 

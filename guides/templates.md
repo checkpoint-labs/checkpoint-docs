@@ -45,9 +45,10 @@ Sample config might look like this:
 After template is defined it can be executed in any writer to start tracking specific contract address for events defined in that template:
 
 <pre class="language-typescript"><code class="lang-typescript"><strong>// in handleSpaceCreated
-</strong><strong>instance.executeTemplate('Space', {
+</strong><strong>await instance.executeTemplate('Space', {
 </strong>  contract: 'some_new_contract_address',
   start: block.block_number
-});</code></pre>
+});
+</code></pre>
 
 Once template has been executed all events defined in that template will be tracked for given contract address.

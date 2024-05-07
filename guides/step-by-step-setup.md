@@ -54,20 +54,23 @@ The `deploy_fn` and `fn` values are the names of the data writer functions to be
 
 Checkpoint requires a set of defined GraphQL Schema Objects. These schema objects will be used to create the database tables for indexing records and also generate graphql queries for accessing the indexed data.
 
-For this guide, we will want to track a `Post` entity and have it exposed via the graphql API. This entity can be defined as the following schema:
+For this guide, we will want to track a `Post` entity and have it exposed via the graphql API. This entity can be defined as the following schema file:
 
-```graphql
-const schema = `
-""" Entity named Post """
-type Post {
+<pre class="language-graphql" data-title="src/schema.gql"><code class="lang-graphql"><strong>""" Entity named Post """
+</strong>type Post {
   id: String!
   author: String!
   created_at_block: Int!
 }
-`;
-```
+</code></pre>
 
 Checkpoint will use the above entity (`Post)` to generate a MySQL database table named `posts` with columns matching the defined fields. It will also generate a list of graphql queries to enable querying indexed data. Read more about how queries are generated [here](../core-concepts/entity-schema.md#query-generation).
+
+When updating your schema you should run following script to generate ORM models:
+
+```sh
+yarn checkpoint generate
+```
 
 ### Creating Data Writers
 
@@ -75,14 +78,16 @@ Data writers are Javascript functions that get invoked by Checkpoint when it dis
 
 We have defined two data writer functions in our Checkpoint configuration above. These are:
 
-* handleDeploy and,
+* handleDeploy
 * handleNewPost
 
 Let's create these data writer functions:
 
+{% code title="src/writers.ts" %}
 ```typescript
 import { CheckpointWriters } from "@snapshot-labs/checkpoint";
 import { getAddress } from '@ethersproject/address';
+import { Post } from '../.checkpoint/models';
 
 const writers: CheckpointWriters = {
     // handleDeploy will get invoked when a contract deployment
@@ -92,25 +97,21 @@ const writers: CheckpointWriters = {
     },
     // handleNewPost will get invoked when a `new_post` event
     // is found at a block
-    handleNewPost: async ({ mysql, event, block }) => {
+    handleNewPost: async ({ event, block }) => {
         if (!event) return;
 
         // extract posters address from events data
         const author = getAddress(BigNumber.from(event.data[0]).toHexString());
         
-        // post object matches fields of Post entity we will
-        // define in graphql schema
-        const posts = {
-          id: `${author}/${tx.transaction_hash}`,
-          author,
-          created_at_block: block.blockNumber
-        };
-    
-        // table names are `lowercase(EntityName)s` and can be interacted with sql
-        await mysql.queryAsync('INSERT IGNORE INTO posts SET ?', [post]);
+        // store Post in database
+        const post = new Post(`${author}/${tx.transaction_hash}`);
+        post.author = author;
+        post.created_at_block = block.blockNumber;
+        await post.save();
     },
 }
 ```
+{% endcode %}
 
 With the above code snippet, we have a data writer that writes new posts to the MySQL database.
 
@@ -122,13 +123,22 @@ You can view a more comprehensive data writer example in our checkpoint-template
 
 Finally, we can initialize a checkpoint instance with our arguments like these:
 
+{% code title="src/index.ts" %}
 ```typescript
+import fs from 'fs/promises';
 import Checkpoint from "@snapshot-labs/checkpoint";
+import * as writers from './writers.ts';
+
+...
+
+const schemaFile = path.join(__dirname, `${dir}../src/schema.gql`);
+const schema = fs.readFileSync(schemaFile, 'utf8');
 
 ...
 
 const checkpoint = new Checkpoint(config, writer, schema);
 ```
+{% endcode %}
 
 Next, we start up checkpoint's indexer like this:
 

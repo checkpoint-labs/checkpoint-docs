@@ -24,13 +24,11 @@ type Proposal {
 When creating entities in writer set `Proposal`'s `space` field to the value of `Space`'s `id` field.
 
 ```typescript
-const proposal = {
-  id: 'proposal_id',
-  name: 'Proposal name',
-  space: 'space_id'
-}
+const proposal = new Proposal('proposal_id');
+proposal.name = 'Proposal name';
+proposal.space = 'Space_id';
 
-await mysql.queryAsync('INSERT INTO proposals SET ?', [proposal]);
+await proposal.save();
 ```
 
 ### Query data via GraphQL

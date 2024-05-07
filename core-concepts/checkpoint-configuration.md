@@ -6,6 +6,7 @@ Checkpoint uses a configuration object to determine which networks and contract 
 // Configuration used to initialize Checkpoint
 export interface CheckpointConfig {
   network_node_url: string;
+  optimistic_indexing?: boolean;
   sources?: ContractSourceConfig[];
   templates?: { [key: string]: ContractTemplate };
 }
