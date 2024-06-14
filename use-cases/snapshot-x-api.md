@@ -1,4 +1,4 @@
 # Snapshot X API
 
-The fully on-chain proposal and decision management platform version of [Snapshot](https://snapshot.org) named Snapshot X, uses Checkpoint to easily build and expose it's GraphQL API sourced from it's StarkNet contracts data.
+Snapshot X, the onchain voting protocol by Snapshot, leverages Checkpoint to efficiently build and expose its GraphQL API, which is sourced from data in its Starknet contracts. You can find the code here: [https://github.com/snapshot-labs/sx-monorepo/tree/master/apps/api](https://github.com/snapshot-labs/sx-monorepo/tree/master/apps/api)
 
