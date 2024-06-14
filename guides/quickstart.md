@@ -108,7 +108,7 @@ Here is a quick description of important files within the template project and w
 * [**src/index.ts**](https://github.com/snapshot-labs/checkpoint-template/blob/master/src/index.ts): This is the entrypoint, that initializes Checkpoint, starts its indexer and also exposes the graphql API.
 * [**src/checkpoints.json**](https://github.com/snapshot-labs/checkpoint-template/blob/master/src/checkpoints.json): Defines blocks where we are sure the contracts events exists. This is used to seed checkpoint inside the index.ts file to speed up Checkpoints indexing.
 
-You are encouraged to try modifying the template project to understand how Checkpoint works and quickly get started using it to index your contracts data on StarkNet.
+You are encouraged to try modifying the template project to understand how Checkpoint works and quickly get started using it to index your contracts data on Starknet.
 
 
 

@@ -55,7 +55,7 @@ To do this, we need to create a configuration file for Checkpoint. In the **`src
 
 ```
 
-The **`network_node_url`** property specifies the URL of the StarkNet node we want to connect to. The `**global_events`\*\* property is an array of objects that define the events we want to index and it’s associated handle function. Here compared to the previous tutorial you will notice that we have not filled any contract but only an event. In this example, we're tracking a list of erc20 and holders, and listening to the `**transfer`\*\* event emitted by any smart-contract. The **`start`** property specifies the block number from which Checkpoint starts scanning.
+The **`network_node_url`** property specifies the URL of the Starknet node we want to connect to. The `**global_events`\*\* property is an array of objects that define the events we want to index and it’s associated handle function. Here compared to the previous tutorial you will notice that we have not filled any contract but only an event. In this example, we're tracking a list of erc20 and holders, and listening to the `**transfer`\*\* event emitted by any smart-contract. The **`start`** property specifies the block number from which Checkpoint starts scanning.
 
 **Step 4: Defining GraphQL Entity Schemas**
 

@@ -146,7 +146,7 @@ Next, we start up checkpoint's indexer like this:
 checkpoint.start();
 ```
 
-The above code will start the checkpoint indexer, and it will begin processing each StarkNet block. When a relevant contract event is found, it gets passed to the data writer for that event.
+The above code will start the checkpoint indexer, and it will begin processing each Starknet block. When a relevant contract event is found, it gets passed to the data writer for that event.
 
 ### Querying data
 
