@@ -85,31 +85,30 @@ Let's create these data writer functions:
 
 {% code title="src/writers.ts" %}
 ```typescript
-import { CheckpointWriters } from "@snapshot-labs/checkpoint";
+import { starknet } from "@snapshot-labs/checkpoint";
 import { getAddress } from '@ethersproject/address';
 import { Post } from '../.checkpoint/models';
 
-const writers: CheckpointWriters = {
-    // handleDeploy will get invoked when a contract deployment
-    // is found at a block
-    handleDeploy: async (args) => {
-        // we won't do anything at this time.
-    },
-    // handleNewPost will get invoked when a `new_post` event
-    // is found at a block
-    handleNewPost: async ({ event, block }) => {
-        if (!event) return;
+// handleDeploy will get invoked when a contract deployment
+// is found at a block
+export const handleDeploy: starknet.Writer = async (args) => {
+    // we won't do anything at this time.
+};
 
-        // extract posters address from events data
-        const author = getAddress(BigNumber.from(event.data[0]).toHexString());
-        
-        // store Post in database
-        const post = new Post(`${author}/${tx.transaction_hash}`);
-        post.author = author;
-        post.created_at_block = block.blockNumber;
-        await post.save();
-    },
-}
+// handleNewPost will get invoked when a `new_post` event
+// is found at a block
+export const handleNewPost: starknet.Writer = async ({ event, block }) => {
+    if (!event) return;
+
+    // extract posters address from events data
+    const author = getAddress(BigNumber.from(event.data[0]).toHexString());
+    
+    // store Post in database
+    const post = new Post(`${author}/${tx.transaction_hash}`);
+    post.author = author;
+    post.created_at_block = block.blockNumber;
+    await post.save();
+};
 ```
 {% endcode %}
 
@@ -136,7 +135,8 @@ const schema = fs.readFileSync(schemaFile, 'utf8');
 
 ...
 
-const checkpoint = new Checkpoint(config, writer, schema);
+const indexer = new starknet.StarknetIndexer(writers);
+const checkpoint = new Checkpoint(config, indexer, schema);
 ```
 {% endcode %}
 

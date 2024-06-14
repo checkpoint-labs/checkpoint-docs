@@ -87,7 +87,7 @@ In the **`src`** directory, create a file named **`writers.ts`** and define the 
 
 ```typescript
 import { hexStrArrToStr, toAddress } from './utils';
-import type { CheckpointWriter } from '@snapshot-labs/checkpoint';
+import type { starknet } from '@snapshot-labs/checkpoint';
 import { Post } from '../.checkpoint/models';
 
 export async function handleDeploy() {
@@ -99,7 +99,7 @@ export async function handleDeploy() {
 //
 // See here for the original logic used to create post transactions:
 // https://gist.github.com/perfectmak/417a4dab69243c517654195edf100ef9#file-index-ts
-export async function handleNewPost({ block, tx, event }: Parameters<CheckpointWriter>[0]) {
+export async function handleNewPost({ block, tx, event }: Parameters<starknet.Writer>[0]) {
   if (!event) return;
 
   const author = toAddress(event.data[0]);
@@ -150,7 +150,7 @@ import express from 'express';
 import cors from 'cors';
 import path from 'path';
 import fs from 'fs';
-import Checkpoint, { LogLevel } from '@snapshot-labs/checkpoint';
+import Checkpoint, { starknet, LogLevel } from '@snapshot-labs/checkpoint';
 import config from './config.json';
 import * as writers from './writers';
 import checkpointBlocks from './checkpoints.json';
@@ -165,7 +165,8 @@ const checkpointOptions = {
 };
 
 // Initialize checkpoint
-const checkpoint = new Checkpoint(config, writers, schema, checkpointOptions);
+const indexer = new starknet.StarknetIndexer(writers);
+const checkpoint = new Checkpoint(config, indexer, schema, checkpointOptions);
 
 // resets the entities already created in the database
 // ensures data is always fresh on each re-run
