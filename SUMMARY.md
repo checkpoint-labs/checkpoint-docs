@@ -10,6 +10,7 @@
 * [One-to-one relations](guides/one-to-one-relations.md)
 * [BigInt and BigDecimal](guides/bigint-and-bigdecimal.md)
 * [ApolloServer usage](guides/apolloserver-usage.md)
+* [Time-travel queries](guides/time-travel-queries.md)
 * [Advanced options](guides/advanced-options.md)
 * [Media](guides/media.md)
 

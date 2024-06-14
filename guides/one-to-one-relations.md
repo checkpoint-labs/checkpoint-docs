@@ -37,7 +37,7 @@ It's now possible to nest space entity when querying proposals. You can still fi
 
 ```graphql
 {
-  proposals(first: 10, where: {space: "0x00b60f2a154b9aaec8e4bec8e04f86d6cd92a9c993871e904bd815962603492d"}) {
+  proposals(first: 10, where: { space: "0x00b60f2a154b9aaec8e4bec8e04f86d6cd92a9c993871e904bd815962603492d" }) {
     id
     space {
       id
