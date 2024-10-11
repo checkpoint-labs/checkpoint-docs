@@ -28,23 +28,41 @@ When writing to those fields make sure that you are using JavaScript type that `
 
 ### Custom decimal types
 
-It's possible to define new or to redefine existing decimal types using [advanced options](advanced-options.md).
+It's possible to define new or to redefine existing decimal types using [checkpoint configuration](../core-concepts/checkpoint-configuration.md).
 
 ```typescript
-const checkpoint = new Checkpoint(config, writer, schema, {
-  decimalTypes: {
-    Decimal: {
-      p: 14,
-      d: 10
+import { CheckpointConfig } from "@snapshot-labs/checkpoint";
+
+const config: CheckpointConfig = {
+  network_node_url:
+    "https://starknet-goerli.infura.io/v3/46a5dd9727bf48d4a132672d3f376146",
+  sources: [
+    {
+      contract:
+        "0x04d10712e72b971262f5df09506bbdbdd7f729724030fa909e8c8e7ac2fd0012",
+      start: 185778,
+      deploy_fn: "handleDeploy",
+      events: [
+        {
+          name: "new_post",
+          fn: "handleNewPost",
+        },
+      ],
+      decimal_types: {
+        Decimal: {
+          p: 14,
+          d: 10,
+        },
+        BigDecimal: {
+          p: 20,
+          d: 8,
+        },
+        EvenBiggerDecimal: {
+          p: 40,
+          d: 16,
+        },
+      },
     },
-    BigDecimal: {
-      p: 20,
-      d: 8
-    },
-    EvenBiggerDecimal: {
-      p: 40,
-      d: 16
-    }
-  }
-});
+  ],
+};
 ```

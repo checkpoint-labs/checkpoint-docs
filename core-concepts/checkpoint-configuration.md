@@ -9,6 +9,7 @@ export interface CheckpointConfig {
   optimistic_indexing?: boolean;
   sources?: ContractSourceConfig[];
   templates?: { [key: string]: ContractTemplate };
+  decimal_types?: { [key: string]: { p: number; d: number } };
 }
 
 export interface ContractEventConfig {
@@ -32,4 +33,3 @@ export interface ContractTemplate {
   events: ContractEventConfig[];
 };
 ```
-
