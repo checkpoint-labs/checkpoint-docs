@@ -2,9 +2,14 @@
 description: >-
   In this tutorial, we'll be exploring how to index and query global events on
   Starknet using Checkpoint.
+hidden: true
 ---
 
-# Part 2 - Indexing global events
+# Indexing global events
+
+{% hint style="warning" %}
+Hiding for now as we need to update token-api-checkpoint.
+{% endhint %}
 
 We'll start from scratch so if you read episode you may want to skip some parts. We’ll go over the basics of setting up a Checkpoint project, including defining a Checkpoint configuration, a GraphQL entity schema, and data writers. We'll also cover how to start the Checkpoint indexer and query the indexed data using the generated GraphQL API.
 

@@ -19,13 +19,14 @@
 * [Models](core-concepts/models.md)
 * [Checkpoint configuration](core-concepts/checkpoint-configuration.md)
 * [Entity schema](core-concepts/entity-schema.md)
-* [Data writers](core-concepts/data-writers.md)
+* [Data writers (Starknet)](core-concepts/data-writers.md)
+* [Data writers (Evm)](core-concepts/data-writers-1.md)
 * [Internal data query](core-concepts/internal-data-query.md)
 
 ## Tutorials
 
 * [Part 1 - Get started](tutorials/part-1-get-started.md)
-* [Part 2 - Indexing global events](tutorials/part-2-indexing-global-events.md)
+* [Indexing global events](tutorials/part-2-indexing-global-events.md)
 
 ## Use Cases
 

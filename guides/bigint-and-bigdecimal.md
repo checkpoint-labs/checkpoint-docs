@@ -2,13 +2,13 @@
 
 Checkpoint provides support for `BigInt`, `Decimal`, `BigDecimal`. It's also possible to define custom (or define existing) decimal types.
 
-### MySQL mappings
+### PostgreSQL mappings
 
-BigInt and BigDecimal types are mapped to following MySQL types by default:
+BigInt and BigDecimal types are mapped to following PostgreSQL types by default:
 
-* `BigInt` -> `BIGINT`
-* `Decimal` -> `DECIMAL(10, 2)`
-* `BigDecimal` -> `DECIMAL(20, 8)`
+* `BigInt` -> `bigint`
+* `Decimal` -> `decimal(10, 2)`
+* `BigDecimal` -> decimal`(20, 8)`
 
 ### Using BigInt and BigDecimal types
 
@@ -22,47 +22,34 @@ type User {
 }  
 ```
 
-{% hint style="warning" %}
-When writing to those fields make sure that you are using JavaScript type that `mysql` package understands and won't result in loss of precision. `BigInt` and `String` should be preferred.
-{% endhint %}
-
 ### Custom decimal types
 
-It's possible to define new or to redefine existing decimal types using [checkpoint configuration](../core-concepts/checkpoint-configuration.md).
+It's possible to define new or to redefine existing decimal types using overrides. This file should be called overrides.json and stored in your source directory.
+
+```json
+{
+  "decimal_types": {
+    "BigDecimalVP": {
+      "p": 60,
+      "d": 0
+    }
+  }
+}
+
+```
+
+{% hint style="info" %}
+When you use custom decimal types your decimal types need to be static and stored in overrides.json file. This is because it's used in codegen process of ORM.
+{% endhint %}
+
+You can then pass those to Checkpoint via options:
 
 ```typescript
-import { CheckpointConfig } from "@snapshot-labs/checkpoint";
+import overridesConfig from './overrides.json';
 
-const config: CheckpointConfig = {
-  network_node_url:
-    "https://starknet-goerli.infura.io/v3/46a5dd9727bf48d4a132672d3f376146",
-  sources: [
-    {
-      contract:
-        "0x04d10712e72b971262f5df09506bbdbdd7f729724030fa909e8c8e7ac2fd0012",
-      start: 185778,
-      deploy_fn: "handleDeploy",
-      events: [
-        {
-          name: "new_post",
-          fn: "handleNewPost",
-        },
-      ],
-      decimal_types: {
-        Decimal: {
-          p: 14,
-          d: 10,
-        },
-        BigDecimal: {
-          p: 20,
-          d: 8,
-        },
-        EvenBiggerDecimal: {
-          p: 40,
-          d: 16,
-        },
-      },
-    },
-  ],
-};
+// ...
+
+const checkpoint = new Checkpoint(schema, {
+  overridesConfig
+});
 ```

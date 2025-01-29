@@ -1,10 +1,18 @@
+---
+hidden: true
+---
+
 # Part 1 - Get started
+
+{% hint style="warning" %}
+Hidden this because it pretty much duplicates our step-by-step setup.
+{% endhint %}
 
 In this tutorial, we'll be exploring how to index and query data on Starknet using Checkpoint. We'll cover the basics of setting up a Checkpoint project to index data on Starknet, including defining a Checkpoint configuration, a GraphQL entity schema, and data writers. We'll also cover how to start the Checkpoint indexer and query the indexed data using the generated GraphQL API.
 
 By the end of this tutorial, you'll have a good understanding of how to use Checkpoint to index and query data on Starknet\
 \
-[💡](https://emojipedia.org/fr/ampoule/) W_e’ll be using_ [_https://github.com/snapshot-labs/checkpoint-template_](https://github.com/snapshot-labs/checkpoint-template) _as an exemple. Feel free to follow along with the repository._\
+[💡](https://emojipedia.org/fr/ampoule/) &#x57;_&#x65;’ll be using_ [_https://github.com/snapshot-labs/checkpoint-template_](https://github.com/snapshot-labs/checkpoint-template) _as an exemple. Feel free to follow along with the repository._\
 \
 **Step 1: Installing Checkpoint**&#x20;
 

@@ -50,11 +50,15 @@ Please note, this `Post` model is merely an example. Your actual model will have
 
 ### Creating a model Instance
 
-To create a new instance of your model, you instantiate it with the `id`. Here's how you'd create a new `Post`:
+To create a new instance of your model, you instantiate it with the `id` and indexer name. Here's how you'd create a new `Post`:
 
 ```javascript
-const post = new Post(`${author}/${tx.transaction_hash}`);
+const post = new Post(`${author}/${tx.transaction_hash}`, "INDEXER_NAME");
 ```
+
+{% hint style="info" %}
+Indexer name allows you to assign this specific entity (Post) to specific indexer. Usually this represents certain network ("mainnet", "sepolia").
+{% endhint %}
 
 You then set the other properties:
 

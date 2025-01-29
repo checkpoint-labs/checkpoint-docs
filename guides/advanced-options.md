@@ -1,20 +1,24 @@
 # Advanced options
 
-When initializing Checkpoint library, there is an optional parameter that can be passed to configure some extra behavior of the library.
+When initializing Checkpoint library there is an optional parameter that can be passed to configure some extra behavior of the library.
 
 The type definition for the option object is:
 
 ```typescript
 export interface CheckpointOptions {
+  // Setting to true will trigger reset of database on config changes.
+  resetOnConfigChange?: boolean;
   // Set the log output levels for checkpoint. Defaults to Error.
+  // Note, this does not affect the log outputs in writers.
   logLevel?: LogLevel;
   // optionally format logs to pretty output.
-  // will require installing pino-pretty. Not recommended for production.
+  // Not recommended for production.
   prettifyLogs?: boolean;
-  // Optional database connection string. For now only accepts mysql database
+  // Optional database connection string. For now only accepts PostgreSQL and MySQL/MariaDB
   // connection string. If no provided will default to looking up a value in
   // the DATABASE_URL environment.
   dbConnection?: string;
+  overridesConfig?: OverridesConfig;
 }
 ```
 
@@ -58,7 +62,7 @@ export enum LogLevel {
 
 In a non-production environment, you can set the `prettifyLogs` option to `true` and this will output a pretty version
 
-### Decimal types options
+### Overrides config
 
 Used to redefine [decimal types](bigint-and-bigdecimal.md#custom-decimal-types) available in the schema.
 
@@ -72,8 +76,7 @@ There is a `seedCheckpoints` method defined on Checkpoint instances:
 seedCheckpoints(Array<{ contract: string; blocks: number[] }>): Promise<void>
 ```
 
-This `seedCheckpoints` method should be called before starting the indexer, and the method can be called with as many contracts and blocks you already have.\
-
+This `seedCheckpoints` method should be called before starting the indexer, and the method can be called with as many contracts and blocks you already have.\\
 
 For example, in the checkpoint template [project](https://github.com/snapshot-labs/checkpoint-template), seed blocks for the Poster contracts are defined in the \`checkpoints.json\` file as:
 
@@ -94,13 +97,13 @@ import checkpointBlocks from './checkpoints.json';
 //...
 // after initialising a checkpoint object
 
-checkpoint.seedCheckpoint(checkpointBlocks)
-.then(() => checkpoint.start());
+checkpoint.seedCheckpoint('mainnet', checkpointBlocks)
+    .then(() => checkpoint.start());
 ```
 
 ### Exporting checkpoint blocks
 
-For each block where Checkpoint encounters relevant events, it creates a record in the database to keep track of it. These records can be queried through the GraphQL API using the `_checkpoints` query. You can read more about how to do that [here](../core-concepts/internal-data-query.md#2.-\_checkpoint-and-\_checkpoints-query-fields).
+For each block where Checkpoint encounters relevant events, it creates a record in the database to keep track of it. These records can be queried through the GraphQL API using the `_checkpoints` query. You can read more about how to do that [here](../core-concepts/internal-data-query.md#2.-_checkpoint-and-_checkpoints-query-fields).
 
 You can set up a process (or external service) that periodically uses the `_checkpoints` query to fetch the latest blocks and export them for archiving or sharing with another instance of Checkpoint.
 
@@ -109,7 +112,8 @@ Using our Poster contract examples from above, to fetch all blocks where Checkpo
 ```graphql
 query {
     _checkpoints(
-first: 100,
+        indexer: "mainnet"
+        first: 100,
         where: {
         contract_address: "0x04d10712e72b971262f5df09506bbdbdd7f729724030fa909e8c8e7ac2fd0012",
 block_number_gt: 221984 

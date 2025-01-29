@@ -1,4 +1,4 @@
-# Internal data Query
+# Internal data query
 
 Checkpoint also exposes some queries to inspect the internal state of how the indexer is running. Typically, internal queries are usually prefixed with an underscore (`_`) and are structured in a similar way to how [Entity Schema queries](entity-schema.md#query-generation) are generated.
 
@@ -11,10 +11,11 @@ These are used to query single or multiple metadata records. Metadata records ar
 ```graphql
 type Query {
     """ queries a single metadata value by it's id (key) """
-    _metadata(id: ID!): _Metadata
+    _metadata(id: ID!, indexer: String): _Metadata
 
     """ queries multiple metadata values """
     _metadatas(
+    indexer: String
     first: Int
     skip: Int
     orderBy: String
@@ -27,6 +28,7 @@ type Query {
 type _Metadata {
     """ example id: last_indexed_block """
     id: ID!
+    indexer: String!
     value: String
 }
 ```
@@ -37,6 +39,7 @@ For starters, you can execute the following query to see a list of all metadata 
 query {
     _metadatas {
         id
+        _indexer
         value
     }
 }
@@ -51,10 +54,11 @@ These queries are defined as:
 ```graphql
 type Query {
     """ queries a single _checkpoint entry by it's id"""
-    _checkpoint(id: ID!): _Checkpoint
+    _checkpoint(id: ID!, indexer: String): _Checkpoint
     
     """ queries multiple _checkpoint entires """
     _checkpoints(
+    indexer: String
     first: Int
     skip: Int
     orderBy: String
@@ -76,7 +80,7 @@ For example, you can run the following query to fetch all blocks where the event
 
 ```graphql
 query {
-    _checkpoints(where: {
+    _checkpoints(indexer: "mainnet", where: {
         contract_address: "0x<contract-address>"
     }) {
         block_number

@@ -10,7 +10,7 @@ To successfully, follow this guide and run the template project, you'll need the
 
 * Node.js (>=14.x.x)
 * Yarn
-* MySQL (or Docker to quickly run an image).
+* PostgreSQL (or Docker to quickly run an image).
 
 #### 1. Setup dependencies
 
@@ -22,22 +22,18 @@ yarn
 
 #### 2. Run project
 
-Checkpoint projects (and by extension this template) require a MySQL database connection to store indexed data. If you have a MySQL server running, then create a copy of the `.env.example` file and name `.env`. Then update the `DATABASE_URL` value in the `.env` file to match the connection string to your database.
+Checkpoint projects (and by extension this template) require a PostgreSQL database connection to store indexed data. If you have a PostgreSQL server running, then create a copy of the `.env.example` file and name `.env`. Then update the `DATABASE_URL` value in the `.env` file to match the connection string to your database.
 
 {% hint style="info" %}
 If you have Docker on your computer, you can quickly startup a MySQL server by running the following command in a separate terminal:
 
 ```bash
-docker run \
-    -it -p 3306:3306 \
-    -e MYSQL_ROOT_PASSWORD="default_password" \
-    -e MYSQL_DATABASE="checkpoint" mysql:8.0 \
-    "--default-authentication-plugin=mysql_native_password"
+docker run --name checkpoint-postgres \
+    -p "5432:5432" \
+    -e POSTGRES_PASSWORD=default_password -d postgres
 ```
 
-
-
-And then you can use `mysql://root:default_password@localhost:3306/checkpoint` as your .env files `DATABASE_URL` value .
+And then you can use `postgres://postgres:default_password@localhost:5432/postgres` as your .env files `DATABASE_URL` value .
 {% endhint %}
 
 Next, start the server by running:
@@ -94,7 +90,7 @@ Here is a quick description of important files within the template project and w
 ```
 ├── src
 │   ├── checkpoints.json
-│   ├── config.json
+│   ├── config.ts
 │   ├── index.ts
 │   ├── schema.gql
 │   ├── utils.ts
@@ -103,9 +99,9 @@ Here is a quick description of important files within the template project and w
 ```
 
 * [**src/schema.gql**](https://github.com/snapshot-labs/checkpoint-template/blob/master/src/schema.gql): Defines the `Post` entity Checkpoint uses to generate API queries.
-* [**src/config.json**](https://github.com/snapshot-labs/checkpoint-template/blob/master/src/config.json): Defines the [CheckpointConfiguration](../core-concepts/checkpoint-configuration.md) object used to initialize Checkpoint and it contains the details of a Poster contract deployed to the goerli-alpha network.
+* [**src/config.ts**](https://github.com/checkpoint-labs/checkpoint-template/blob/master/src/config.ts): Defines the [CheckpointConfig](../core-concepts/checkpoint-configuration.md) object used to initialize Checkpoint and it contains the details of a Poster contracts deployed on Starknet mainnet and Starknet sepolia networks.
 * [**src/writers.ts**](https://github.com/snapshot-labs/checkpoint-template/blob/master/src/writers.ts): Defines the [Writers](../core-concepts/data-writers.md) responsible for writing `Post` data whenever Checkpoint encounters a `new_post` event.
-* [**src/index.ts**](https://github.com/snapshot-labs/checkpoint-template/blob/master/src/index.ts): This is the entrypoint, that initializes Checkpoint, starts its indexer and also exposes the graphql API.
+* [**src/index.ts**](https://github.com/snapshot-labs/checkpoint-template/blob/master/src/index.ts): This is the entrypoint, that initializes Checkpoint, configures indexers for each network and exposes the GraphQL API.
 * [**src/checkpoints.json**](https://github.com/snapshot-labs/checkpoint-template/blob/master/src/checkpoints.json): Defines blocks where we are sure the contracts events exists. This is used to seed checkpoint inside the index.ts file to speed up Checkpoints indexing.
 
 You are encouraged to try modifying the template project to understand how Checkpoint works and quickly get started using it to index your contracts data on Starknet.
