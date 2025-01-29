@@ -20,7 +20,7 @@
 * [Checkpoint configuration](core-concepts/checkpoint-configuration.md)
 * [Entity schema](core-concepts/entity-schema.md)
 * [Data writers (Starknet)](core-concepts/data-writers.md)
-* [Data writers (Evm)](core-concepts/data-writers-1.md)
+* [Data writers (EVM)](core-concepts/data-writers-1.md)
 * [Internal data query](core-concepts/internal-data-query.md)
 
 ## Tutorials
@@ -37,4 +37,4 @@
 
 * [Discord](https://discord.gg/snapshot)
 * [Telegram](https://t.me/+dk7Q7FAVJ1oyMDFl)
-* [Github](https://github.com/snapshot-labs/checkpoint)
+* [GitHub](https://github.com/checkpoint-labs/checkpoint)
