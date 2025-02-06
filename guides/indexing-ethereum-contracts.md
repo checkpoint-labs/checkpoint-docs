@@ -8,6 +8,7 @@ Checkpoint can work with any network and chain as long as there is [a provider](
 
 Usage with Ethereum is very similar to usage with Starknet, differences are:
 
+* Use full signature for event name in config (`ProposalUpdated(uint256,(address,bytes),string)` instead of `ProposalUpdated`)
 * Your writers should be using `evm.Writer` instead of `starknet.Writer`.
 * You should create indexer using `new evm.EvmIndexer` instead of `new starknet.StarknetIndexer`.
 
