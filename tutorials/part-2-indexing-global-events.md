@@ -90,7 +90,7 @@ type Token {
 }
 ```
 
-Checkpoint will use the above entities to generate a MySQL (or postgress) database table named **`tokens`** and **`accounttokens`** with columns matching the defined fields. It will also generate a list of GraphQL queries to enable querying indexed data.
+Checkpoint will use the above entities to generate a PostgreSQL database table named **`tokens`** and **`accounttokens`** with columns matching the defined fields. It will also generate a list of GraphQL queries to enable querying indexed data.
 
 **💡** Note that entities are converted to lower case and pluralized
 
@@ -110,7 +110,7 @@ export async function handleTransfer({
   block,
   tx,
   rawEvent,
-  mysql
+  postgresql
 }: Parameters<CheckpointWriter>[0]) {
   // Start manipulating your data here
 }
@@ -158,30 +158,30 @@ Now that we are sure we have the right event we can manipulate its data as we wi
 
 ```tsx
 // If token isn't indexed yet we add it, else we load it
-if (await newToken(rawEvent.from_address, mysql)) {
+if (await newToken(rawEvent.from_address, postgresql)) {
   token = await createToken(rawEvent.from_address);
-  await mysql.queryAsync(`INSERT IGNORE INTO tokens SET ?`, [token]);
+  await postgresql.queryAsync(`INSERT IGNORE INTO tokens SET ?`, [token]);
 } else {
-  token = await loadToken(rawEvent.from_address, mysql);
+  token = await loadToken(rawEvent.from_address, postgresql);
 }
 
 // If accounts aren't indexed yet we add them, else we load them
 // First with fromAccount
 const fromId: string = token.id.slice(2) + '-' + data.from.slice(2);
-if (await newAccount(fromId, mysql)) {
+if (await newAccount(fromId, postgresql)) {
   fromAccount = await createAccount(token, fromId, tx, block);
-  await mysql.queryAsync(`INSERT IGNORE INTO accounttokens SET ?`, [fromAccount]);
+  await postgresql.queryAsync(`INSERT IGNORE INTO accounttokens SET ?`, [fromAccount]);
 } else {
-  fromAccount = await loadAccount(fromId, mysql);
+  fromAccount = await loadAccount(fromId, postgresql);
 }
 
 // Then with toAccount
 const toId: string = token.id.slice(2) + '-' + data.to.slice(2);
-if (await newAccount(toId, mysql)) {
+if (await newAccount(toId, postgresql)) {
   toAccount = await createAccount(token, toId, tx, block);
-  await mysql.queryAsync(`INSERT IGNORE INTO accounttokens SET ?`, [toAccount]);
+  await postgresql.queryAsync(`INSERT IGNORE INTO accounttokens SET ?`, [toAccount]);
 } else {
-  toAccount = await loadAccount(toId, mysql);
+  toAccount = await loadAccount(toId, postgresql);
 }
 
 // Updating balances
@@ -200,18 +200,18 @@ toAccount.tx = tx.transaction_hash!;
 
 **Step 8: Store the updated values**
 
-Now we need to store the updated values in our database. To do this you just have to make a call to your database by executing the sql request you want via your sql instance (**`mysql`** here). Here we want to update **`fromAccount`** and **`toAccount`** so we will proceed like this:
+Now we need to store the updated values in our database. To do this you just have to make a call to your database by executing the sql request you want via your sql instance (**`postgresql`** here). Here we want to update **`fromAccount`** and **`toAccount`** so we will proceed like this:
 
 ```tsx
 // Indexing accounts
-await mysql.queryAsync(
+await postgresql.queryAsync(
   `UPDATE accounttokens SET balance=${
     fromAccount.balance
   }, rawBalance=${fromAccount.rawBalance.toString()}, modified=${fromAccount.modified}, tx='${
     fromAccount.tx
   }' WHERE id='${fromAccount.id}'`
 );
-await mysql.queryAsync(
+await postgresql.queryAsync(
   `UPDATE accounttokens SET balance=${
     toAccount.balance
   }, rawBalance=${toAccount.rawBalance.toString()}, modified=${toAccount.modified}, tx='${
@@ -222,7 +222,7 @@ await mysql.queryAsync(
 
 **Step 9: Run and test your indexer**
 
-Lastly to test your indexer you need to run a database instance (mysql or postgres) locally and set the **`database_url`** environment variable in your .env (refer to the .env.exemple file). Then you just have to `yarn` to install the dependencies and then `yarn dev` to run Checkpoint. To check if everything is working well you may want to query your indexed data by running GraphQL queries on **`http://localhost:3000`**. For this project we’ll be using :
+Lastly to test your indexer you need to run a database instance (postgres) locally and set the **`database_url`** environment variable in your .env (refer to the .env.exemple file). Then you just have to `yarn` to install the dependencies and then `yarn dev` to run Checkpoint. To check if everything is working well you may want to query your indexed data by running GraphQL queries on **`http://localhost:3000`**. For this project we’ll be using :
 
 ```graphql
 query {

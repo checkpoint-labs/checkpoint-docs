@@ -85,7 +85,7 @@ type Post {
 }
 ```
 
-Checkpoint will use the above entity (Post) to generate a MySQL database table named **`posts`** with columns matching the defined fields. It will also generate a list of GraphQL queries to enable querying indexed data.
+Checkpoint will use the above entity (Post) to generate a PostgreSQL database table named **`posts`** with columns matching the defined fields. It will also generate a list of GraphQL queries to enable querying indexed data.
 
 **Step 5: Creating Data Writers**
 

@@ -25,7 +25,7 @@ yarn
 Checkpoint projects (and by extension this template) require a PostgreSQL database connection to store indexed data. If you have a PostgreSQL server running, then create a copy of the `.env.example` file and name `.env`. Then update the `DATABASE_URL` value in the `.env` file to match the connection string to your database.
 
 {% hint style="info" %}
-If you have Docker on your computer, you can quickly startup a MySQL server by running the following command in a separate terminal:
+If you have Docker on your computer, you can quickly startup a PostgreSQL server by running the following command in a separate terminal:
 
 ```bash
 docker run --name checkpoint-postgres \

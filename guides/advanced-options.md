@@ -14,7 +14,7 @@ export interface CheckpointOptions {
   // optionally format logs to pretty output.
   // Not recommended for production.
   prettifyLogs?: boolean;
-  // Optional database connection string. For now only accepts PostgreSQL and MySQL/MariaDB
+  // Optional database connection string. For now only accepts PostgreSQL
   // connection string. If no provided will default to looking up a value in
   // the DATABASE_URL environment.
   dbConnection?: string;
